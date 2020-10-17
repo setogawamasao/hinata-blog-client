@@ -1,45 +1,37 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFilter } from "@fortawesome/free-solid-svg-icons";
+import { BlogInfo, List } from "./List";
 
-const App = () => {
+export const App: React.FC = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [blogs, setBlogs] = useState<BlogInfo[]>([]);
+
+  const getBlogs = async ():Promise<BlogInfo[]> => {  
+    const response = await fetch("http://localhost:3001/api/v1/blogs");
+    const blogs:BlogInfo[] = await response.json();
+    console.log(blogs);
+    return blogs 
+   };  
+
   return (
     <>
       <section className="section">
         <div className="container">
           <button
             className="button"
-            onClick={(): void => {
-              setIsOpen(true);
+            onClick={async(): Promise<void> => {
+              //setIsOpen(true);
+              const blogs = await getBlogs();
+              setBlogs(blogs)
             }}
           >
-            <FontAwesomeIcon icon={faFilter} size={"1x"} />
+           検索
           </button>
-          <table className="table" style={{ width: "100%" }}>
-            <thead>
-              <tr>
-                <th style={{ width: "100px" }}>投稿日</th>
-                <th style={{ width: "100px" }}>名前</th>
-                <th style={{ width: "auto" }}>タイトル</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>2020/01/01</td>
-                <td>金村美玖</td>
-                <td>XXXXXXXXXX</td>
-              </tr>
-              <tr>
-                <td>2020/01/02</td>
-                <td>松田好花</td>
-                <td>YYYYYYYYYY</td>
-              </tr>
-            </tbody>
-          </table>
+          <List blogs={blogs}/>
         </div>
       </section>
-      {isOpen && (
+      {/* {isOpen && (
         <div className="modal is-active">
           <div className="modal-background"></div>
           <div className="modal-card">
@@ -67,9 +59,7 @@ const App = () => {
             </footer>
           </div>
         </div>
-      )}
+      )} */}
     </>
   );
 };
-
-export default App;
