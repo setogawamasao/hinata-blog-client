@@ -1,13 +1,20 @@
 import React from "react";
 import { DateTime } from "luxon";
 
-export const List: React.FC<{ blogs: BlogInfo[] }> = ({ blogs }) => {
+export type Blog = {
+  postedAt: string;
+  postedBy: string;
+  title: string;
+  url: string;
+};
+
+export const List: React.FC<{ blogs: Blog[] }> = ({ blogs }) => {
   return (
     <table className="table" style={{ width: "100%" }}>
       <thead>
         <tr>
-          <th style={{ width: "170px" }}>投稿日</th>
-          <th style={{ width: "100px" }}>名前</th>
+          <th style={{ width: "148px" }}>投稿日</th>
+          <th style={{ width: "110px" }}>名前</th>
           <th style={{ width: "auto" }}>タイトル</th>
         </tr>
       </thead>
@@ -20,14 +27,7 @@ export const List: React.FC<{ blogs: BlogInfo[] }> = ({ blogs }) => {
   );
 };
 
-export type BlogInfo = {
-  postedAt: string;
-  memberName: string;
-  blogTitle: string;
-  url: string;
-};
-
-export const Row: React.FC<{ blog: BlogInfo }> = ({ blog }) => {
+export const Row: React.FC<{ blog: Blog }> = ({ blog }) => {
   return (
     <tr
       style={{}}
@@ -36,8 +36,8 @@ export const Row: React.FC<{ blog: BlogInfo }> = ({ blog }) => {
       }}
     >
       <td>{DateTime.fromISO(blog.postedAt).toFormat("yyyy/MM/dd HH:mm")}</td>
-      <td>{blog.memberName}</td>
-      <td>{blog.blogTitle}</td>
+      <td>{blog.postedBy}</td>
+      <td>{blog.title}</td>
     </tr>
   );
 };
