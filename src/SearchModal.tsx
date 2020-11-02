@@ -70,13 +70,15 @@ export const SearchModal: React.FC<{
           <div style={{ display: "flex", flexWrap: "wrap" }}>
             {members1.map((member, idx) => {
               return (
-                <MemberCheckBox
-                  key={idx}
-                  value={member.code}
-                  caption={member.name}
-                  checkedMembers={checkedMembers}
-                  setCheckedMembers={setCheckedMembers}
-                />
+                <div style={{ marginBottom: "0.3rem" }}>
+                  <MemberCheckBox
+                    key={idx}
+                    value={member.code}
+                    caption={member.name}
+                    checkedMembers={checkedMembers}
+                    setCheckedMembers={setCheckedMembers}
+                  />
+                </div>
               );
             })}
           </div>
@@ -84,13 +86,15 @@ export const SearchModal: React.FC<{
           <div style={{ display: "flex", flexWrap: "wrap" }}>
             {members2.map((member, idx) => {
               return (
-                <MemberCheckBox
-                  key={idx}
-                  value={member.code}
-                  caption={member.name}
-                  checkedMembers={checkedMembers}
-                  setCheckedMembers={setCheckedMembers}
-                />
+                <div style={{ marginBottom: "0.3rem" }}>
+                  <MemberCheckBox
+                    key={idx}
+                    value={member.code}
+                    caption={member.name}
+                    checkedMembers={checkedMembers}
+                    setCheckedMembers={setCheckedMembers}
+                  />
+                </div>
               );
             })}
           </div>
@@ -98,13 +102,15 @@ export const SearchModal: React.FC<{
           <div style={{ display: "flex", flexWrap: "wrap" }}>
             {members3.map((member, idx) => {
               return (
-                <MemberCheckBox
-                  key={idx}
-                  value={member.code}
-                  caption={member.name}
-                  checkedMembers={checkedMembers}
-                  setCheckedMembers={setCheckedMembers}
-                />
+                <div style={{ marginBottom: "0.3rem" }}>
+                  <MemberCheckBox
+                    key={idx}
+                    value={member.code}
+                    caption={member.name}
+                    checkedMembers={checkedMembers}
+                    setCheckedMembers={setCheckedMembers}
+                  />
+                </div>
               );
             })}
           </div>
@@ -153,7 +159,7 @@ const MemberCheckBox: React.FC<{
   setCheckedMembers: React.Dispatch<React.SetStateAction<string[]>>;
 }> = ({ value, caption, checkedMembers, setCheckedMembers }) => {
   return (
-    <label className="checkbox" style={{ margin: "0 0.5rem" }}>
+    <label className="checkbox" style={{ margin: "0 0.2rem" }}>
       <input
         onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
           let bufMembers: string[] = [];
@@ -170,7 +176,7 @@ const MemberCheckBox: React.FC<{
         type="checkbox"
         value={value}
       />
-      <span style={{ marginLeft: "0.4rem" }}>{caption}</span>
+      <span style={{ marginLeft: "0.2rem" }}>{caption}</span>
     </label>
   );
 };
