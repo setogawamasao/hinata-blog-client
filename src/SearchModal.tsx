@@ -67,8 +67,6 @@ export const SearchModal: React.FC<{
           <p className="modal-card-title">検索条件</p>
         </header>
         <section className="modal-card-body">
-          <div>メンバー</div>
-          <div>1期</div>
           <div style={{ display: "flex", flexWrap: "wrap" }}>
             {members1.map((member, idx) => {
               return (
@@ -82,7 +80,7 @@ export const SearchModal: React.FC<{
               );
             })}
           </div>
-          <div>2期</div>
+          <hr style={{ margin: "0.2rem 0" }} />
           <div style={{ display: "flex", flexWrap: "wrap" }}>
             {members2.map((member, idx) => {
               return (
@@ -96,7 +94,7 @@ export const SearchModal: React.FC<{
               );
             })}
           </div>
-          <div>3期</div>
+          <hr style={{ margin: "0.2rem 0" }} />
           <div style={{ display: "flex", flexWrap: "wrap" }}>
             {members3.map((member, idx) => {
               return (

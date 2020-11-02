@@ -131,7 +131,7 @@ export const DateSelector: React.FC<{
       >
         <YearOptions start={startYear} end={today.getFullYear()} />
       </select>
-      <span>年</span>
+
       {/* month */}
       <select
         value={selectedMonth}
@@ -141,7 +141,7 @@ export const DateSelector: React.FC<{
       >
         <MonthOptions />
       </select>
-      <span>月</span>
+
       {/* day */}
       <select
         value={selectedDay}
@@ -151,7 +151,6 @@ export const DateSelector: React.FC<{
       >
         <DayOptions year={selectedYear} month={selectedMonth} />
       </select>
-      <span>日</span>
     </>
   );
 };
