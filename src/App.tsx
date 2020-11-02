@@ -1,33 +1,36 @@
 import React, { useState } from "react";
-import { Blog, List } from "./List";
+// import { Blog, List } from "./List";
+import { Blog, SmartPhoneList } from "./SmartPhoneList";
+import { SearchModal } from "./SearchModal";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faFilter } from "@fortawesome/free-solid-svg-icons";
 
 export const App: React.FC = () => {
   const [blogs, setBlogs] = useState<Blog[]>([]);
+  const [isOpen, setIsOpen] = useState<Boolean>(false);
 
-  const getBlogs = async (): Promise<Blog[]> => {
-    //const apiUrl = "http://localhost:3001/api/blogs/search";
-    const apiUrl = "http://34.219.139.226/hinata-blogs-api/blogs/search";
-    const response = await fetch(apiUrl);
-    const blogs: Blog[] = await response.json();
-    return blogs;
+  const close = () => {
+    setIsOpen(false);
   };
 
   return (
     <>
       <section className="section">
         <div className="container">
+          <span className={"is-size-3"}>おひさまブログ</span>
           <button
             className="button"
-            onClick={async (): Promise<void> => {
-              const blogs = await getBlogs();
-              setBlogs(blogs);
+            onClick={(): void => {
+              setIsOpen(true);
             }}
           >
-            検索
+            <FontAwesomeIcon icon={faFilter} size={"1x"} />
           </button>
-          <List blogs={blogs} />
+          <SmartPhoneList blogs={blogs} />
+          {/* <List blogs={blogs} /> */}
         </div>
       </section>
+      {isOpen && <SearchModal setBlogs={setBlogs} close={close} />}
     </>
   );
 };
