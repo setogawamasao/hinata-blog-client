@@ -32,6 +32,7 @@ export const Row: React.FC<{ blog: Blog }> = ({ blog }) => {
     >
       <div className="card-content" style={{ padding: "0.5rem" }}>
         <div className={"is-size-6"}>{blog.title}</div>
+
         <span className={"is-size-7"} style={{ marginRight: "0.5rem" }}>
           {DateTime.fromISO(blog.postedAt).toFormat("yyyy/MM/dd HH:mm")}
         </span>

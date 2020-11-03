@@ -2,11 +2,18 @@ import React, { useState, useEffect } from "react";
 
 export const DateSelector: React.FC<{
   startYear: number;
+  defaultDate: Date;
   setDate: React.Dispatch<React.SetStateAction<Date | undefined>>;
-}> = ({ startYear, setDate }) => {
-  const [selectedYear, setSelectedYear] = useState<number | undefined>();
-  const [selectedMonth, setSelectedMonth] = useState<number | undefined>();
-  const [selectedDay, setSelectedDay] = useState<number | undefined>();
+}> = ({ startYear, defaultDate, setDate }) => {
+  const [selectedYear, setSelectedYear] = useState<number | undefined>(
+    defaultDate.getFullYear()
+  );
+  const [selectedMonth, setSelectedMonth] = useState<number | undefined>(
+    defaultDate.getMonth() + 1
+  );
+  const [selectedDay, setSelectedDay] = useState<number | undefined>(
+    defaultDate.getDay()
+  );
   const today = new Date();
 
   useEffect(() => {

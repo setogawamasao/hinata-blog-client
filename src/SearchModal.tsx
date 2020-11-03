@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { DateTime } from "luxon";
 
 import { members1, members2, members3 } from "./members";
@@ -6,58 +6,19 @@ import { DateSelector } from "./DateSelector";
 import { Blog } from "./List";
 
 export const SearchModal: React.FC<{
+  getBlogs: (
+    members?: string[],
+    dateFrom?: Date | undefined,
+    dateTo?: Date | undefined,
+    title?: string
+  ) => Promise<Blog[]>;
   setBlogs: React.Dispatch<React.SetStateAction<Blog[]>>;
   close: () => void;
-}> = ({ setBlogs, close }) => {
+}> = ({ getBlogs, setBlogs, close }) => {
   const [checkedMembers, setCheckedMembers] = useState<string[]>([]);
   const [dateFrom, setDateFrom] = useState<Date | undefined>();
   const [dateTo, setDateTo] = useState<Date | undefined>();
   const [titleInput, setTitleInput] = useState<string>("");
-
-  const getBlogs = async (
-    members: string[],
-    dateFrom: Date | undefined,
-    dateTo: Date | undefined,
-    title: string
-  ): Promise<Blog[]> => {
-    //const apiUrl = "http://localhost:3001/api/blogs/search";
-    let queryString = "?";
-
-    let membersCondition = "";
-    if (members.length) {
-      members.forEach((member) => {
-        membersCondition = `${membersCondition}&postedBy[]=${member}`;
-      });
-      queryString = `${queryString}&${membersCondition}`;
-    }
-
-    let dateFromCondition = "";
-    if (dateFrom) {
-      dateFromCondition = `dateFrom=${DateTime.fromISO(
-        dateFrom.toISOString()
-      ).toFormat("yyyy/MM/dd")}`;
-      queryString = `${queryString}&${dateFromCondition}`;
-    }
-
-    let dateToCondition = "";
-    if (dateTo) {
-      dateToCondition = `dateTo=${DateTime.fromISO(
-        dateTo.toISOString()
-      ).toFormat("yyyy/MM/dd")}`;
-      queryString = `${queryString}&${dateToCondition}`;
-    }
-
-    let titleCondition = "";
-    if (title) {
-      titleCondition = `title=${title}`;
-      queryString = `${queryString}&${titleCondition}`;
-    }
-
-    const apiUrl = `http://34.219.139.226/hinata-blogs-api/blogs/search${queryString}`;
-    const response = await fetch(apiUrl);
-    const blogs: Blog[] = await response.json();
-    return blogs;
-  };
 
   return (
     <div className="modal is-active">
@@ -115,9 +76,17 @@ export const SearchModal: React.FC<{
             })}
           </div>
           <div>投稿日</div>
-          <DateSelector startYear={2016} setDate={setDateFrom} />
+          <DateSelector
+            startYear={2016}
+            defaultDate={new Date("2016-02-01T00:00:00")}
+            setDate={setDateFrom}
+          />
           ~
-          <DateSelector startYear={2016} setDate={setDateTo} />
+          <DateSelector
+            startYear={2016}
+            defaultDate={new Date()}
+            setDate={setDateTo}
+          />
           <div>タイトル</div>
           <input
             type="text"
@@ -128,24 +97,26 @@ export const SearchModal: React.FC<{
           />
         </section>
         <footer className="modal-card-foot">
-          <button
-            className="button"
-            onClick={async (): Promise<void> => {
-              const blogs = await getBlogs(
-                checkedMembers,
-                dateFrom,
-                dateTo,
-                titleInput
-              );
-              setBlogs(blogs);
-              close();
-            }}
-          >
-            検索
-          </button>
-          <button className="button" onClick={close}>
-            閉じる
-          </button>
+          <div style={{ margin: "0 auto" }}>
+            <button
+              className="button"
+              onClick={async (): Promise<void> => {
+                const blogs = await getBlogs(
+                  checkedMembers,
+                  dateFrom,
+                  dateTo,
+                  titleInput
+                );
+                setBlogs(blogs);
+                close();
+              }}
+            >
+              検索
+            </button>
+            <button className="button" onClick={close}>
+              閉じる
+            </button>
+          </div>
         </footer>
       </div>
     </div>
