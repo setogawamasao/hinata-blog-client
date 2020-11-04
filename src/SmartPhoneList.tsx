@@ -17,6 +17,7 @@ export const SmartPhoneList: React.FC<{ blogs: Blog[] }> = ({ blogs }) => {
 };
 
 export const Row: React.FC<{ blog: Blog }> = ({ blog }) => {
+  console.log(blog.postedAt);
   return (
     <div
       className="card"
@@ -32,7 +33,9 @@ export const Row: React.FC<{ blog: Blog }> = ({ blog }) => {
           }}
         >
           <span className={"is-size-7"} style={{ marginRight: "0.5rem" }}>
-            {DateTime.fromISO(blog.postedAt).toFormat("yyyy/MM/dd HH:mm")}
+            {DateTime.fromISO(blog.postedAt, {
+              setZone: true,
+            }).toFormat("yyyy/MM/dd HH:mm")}
           </span>
           <span className={"is-size-7"}>{blog.postedBy}</span>
         </div>

@@ -90,7 +90,7 @@ export const SearchModal: React.FC<{
           <div>投稿日</div>
           <DateSelector
             startYear={2016}
-            initialDate={new Date("2016-02-01T00:00:00")}
+            initialDate={new Date("2016-01-01T00:00:00")}
             date={dateFrom}
             setDate={setDateFrom}
           />

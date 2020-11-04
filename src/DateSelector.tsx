@@ -17,8 +17,6 @@ export const DateSelector: React.FC<{
   const [selectedMonth, setSelectedMonth] = useState<number | undefined>(
     defaultDate.getMonth() + 1
   );
-  console.log("defaultDate", defaultDate);
-  console.log("getday", defaultDate.getUTCDay());
   const [selectedDay, setSelectedDay] = useState<number | undefined>(
     defaultDate.getDate()
   );
