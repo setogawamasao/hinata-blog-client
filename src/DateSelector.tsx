@@ -2,17 +2,25 @@ import React, { useState, useEffect } from "react";
 
 export const DateSelector: React.FC<{
   startYear: number;
-  defaultDate: Date;
+  initialDate: Date;
+  date: Date | undefined;
   setDate: React.Dispatch<React.SetStateAction<Date | undefined>>;
-}> = ({ startYear, defaultDate, setDate }) => {
+}> = ({ startYear, initialDate, date, setDate }) => {
+  let defaultDate = initialDate;
+  if (date) {
+    defaultDate = date;
+  }
+
   const [selectedYear, setSelectedYear] = useState<number | undefined>(
     defaultDate.getFullYear()
   );
   const [selectedMonth, setSelectedMonth] = useState<number | undefined>(
     defaultDate.getMonth() + 1
   );
+  console.log("defaultDate", defaultDate);
+  console.log("getday", defaultDate.getUTCDay());
   const [selectedDay, setSelectedDay] = useState<number | undefined>(
-    defaultDate.getDay()
+    defaultDate.getDate()
   );
   const today = new Date();
 

@@ -6,6 +6,14 @@ import { DateSelector } from "./DateSelector";
 import { Blog } from "./Blog";
 
 export const SearchModal: React.FC<{
+  members: string[];
+  setMembers: React.Dispatch<React.SetStateAction<string[]>>;
+  dateFrom: Date | undefined;
+  setDateFrom: React.Dispatch<React.SetStateAction<Date | undefined>>;
+  dateTo: Date | undefined;
+  setDateTo: React.Dispatch<React.SetStateAction<Date | undefined>>;
+  title: string;
+  setTitle: React.Dispatch<React.SetStateAction<string>>;
   getBlogs: (
     members?: string[],
     dateFrom?: Date | undefined,
@@ -14,12 +22,19 @@ export const SearchModal: React.FC<{
   ) => Promise<Blog[]>;
   setBlogs: React.Dispatch<React.SetStateAction<Blog[]>>;
   close: () => void;
-}> = ({ getBlogs, setBlogs, close }) => {
-  const [checkedMembers, setCheckedMembers] = useState<string[]>([]);
-  const [dateFrom, setDateFrom] = useState<Date | undefined>();
-  const [dateTo, setDateTo] = useState<Date | undefined>();
-  const [titleInput, setTitleInput] = useState<string>("");
-
+}> = ({
+  members,
+  setMembers,
+  dateFrom,
+  setDateFrom,
+  dateTo,
+  setDateTo,
+  title,
+  setTitle,
+  getBlogs,
+  setBlogs,
+  close,
+}) => {
   return (
     <div className="modal is-active">
       <div className="modal-background" onClick={close}></div>
@@ -31,13 +46,12 @@ export const SearchModal: React.FC<{
           <div style={{ display: "flex", flexWrap: "wrap" }}>
             {members1.map((member, idx) => {
               return (
-                <div style={{ marginBottom: "0.3rem" }}>
+                <div style={{ marginBottom: "0.3rem" }} key={idx}>
                   <MemberCheckBox
-                    key={idx}
                     value={member.code}
                     caption={member.name}
-                    checkedMembers={checkedMembers}
-                    setCheckedMembers={setCheckedMembers}
+                    checkedMembers={members}
+                    setCheckedMembers={setMembers}
                   />
                 </div>
               );
@@ -47,13 +61,12 @@ export const SearchModal: React.FC<{
           <div style={{ display: "flex", flexWrap: "wrap" }}>
             {members2.map((member, idx) => {
               return (
-                <div style={{ marginBottom: "0.3rem" }}>
+                <div style={{ marginBottom: "0.3rem" }} key={idx}>
                   <MemberCheckBox
-                    key={idx}
                     value={member.code}
                     caption={member.name}
-                    checkedMembers={checkedMembers}
-                    setCheckedMembers={setCheckedMembers}
+                    checkedMembers={members}
+                    setCheckedMembers={setMembers}
                   />
                 </div>
               );
@@ -63,13 +76,12 @@ export const SearchModal: React.FC<{
           <div style={{ display: "flex", flexWrap: "wrap" }}>
             {members3.map((member, idx) => {
               return (
-                <div style={{ marginBottom: "0.3rem" }}>
+                <div style={{ marginBottom: "0.3rem" }} key={idx}>
                   <MemberCheckBox
-                    key={idx}
                     value={member.code}
                     caption={member.name}
-                    checkedMembers={checkedMembers}
-                    setCheckedMembers={setCheckedMembers}
+                    checkedMembers={members}
+                    setCheckedMembers={setMembers}
                   />
                 </div>
               );
@@ -78,21 +90,24 @@ export const SearchModal: React.FC<{
           <div>投稿日</div>
           <DateSelector
             startYear={2016}
-            defaultDate={new Date("2016-02-01T00:00:00")}
+            initialDate={new Date("2016-02-01T00:00:00")}
+            date={dateFrom}
             setDate={setDateFrom}
           />
           ~
           <DateSelector
             startYear={2016}
-            defaultDate={new Date()}
+            initialDate={new Date()}
+            date={dateTo}
             setDate={setDateTo}
           />
           <div>タイトル</div>
           <input
             type="text"
             style={{ width: "100%" }}
+            value={title}
             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-              setTitleInput(event.target.value);
+              setTitle(event.target.value);
             }}
           />
         </section>
@@ -101,12 +116,7 @@ export const SearchModal: React.FC<{
             <button
               className="button"
               onClick={async (): Promise<void> => {
-                const blogs = await getBlogs(
-                  checkedMembers,
-                  dateFrom,
-                  dateTo,
-                  titleInput
-                );
+                const blogs = await getBlogs(members, dateFrom, dateTo, title);
                 setBlogs(blogs);
                 close();
               }}
@@ -132,6 +142,7 @@ const MemberCheckBox: React.FC<{
   return (
     <label className="checkbox" style={{ margin: "0 0.2rem" }}>
       <input
+        checked={checkedMembers.includes(value)}
         onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
           let bufMembers: string[] = [];
           if (event.target.checked) {

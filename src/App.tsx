@@ -11,6 +11,10 @@ import { BrowserView, MobileView } from "react-device-detect";
 
 export const App: React.FC = () => {
   const [blogs, setBlogs] = useState<Blog[]>([]);
+  const [members, setMembers] = useState<string[]>([]);
+  const [dateFrom, setDateFrom] = useState<Date | undefined>();
+  const [dateTo, setDateTo] = useState<Date | undefined>();
+  const [title, setTitle] = useState<string>("");
   const [isOpen, setIsOpen] = useState<Boolean>(false);
 
   const close = () => {
@@ -111,7 +115,19 @@ export const App: React.FC = () => {
         </div>
       </section>
       {isOpen && (
-        <SearchModal getBlogs={getBlogs} setBlogs={setBlogs} close={close} />
+        <SearchModal
+          members={members}
+          setMembers={setMembers}
+          dateFrom={dateFrom}
+          setDateFrom={setDateFrom}
+          dateTo={dateTo}
+          setDateTo={setDateTo}
+          title={title}
+          setTitle={setTitle}
+          getBlogs={getBlogs}
+          setBlogs={setBlogs}
+          close={close}
+        />
       )}
     </>
   );
