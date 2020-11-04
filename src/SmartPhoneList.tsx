@@ -17,7 +17,6 @@ export const SmartPhoneList: React.FC<{ blogs: Blog[] }> = ({ blogs }) => {
 };
 
 export const Row: React.FC<{ blog: Blog }> = ({ blog }) => {
-  console.log(blog.postedAt);
   return (
     <div
       className="card"
