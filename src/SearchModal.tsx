@@ -3,7 +3,7 @@ import { DateTime } from "luxon";
 
 import { members1, members2, members3 } from "./members";
 import { DateSelector } from "./DateSelector";
-import { Blog } from "./List";
+import { Blog } from "./Blog";
 
 export const SearchModal: React.FC<{
   getBlogs: (

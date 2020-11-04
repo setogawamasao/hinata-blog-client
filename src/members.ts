@@ -1,5 +1,5 @@
 export const members1 = [
-  { code: "usio", name: "潮紗理菜" },
+  { code: "ushio", name: "潮紗理菜" },
   { code: "kageyama", name: "影山優佳" },
   { code: "kato", name: "加藤史帆" },
   { code: "saito", name: "齊藤京子" },
@@ -16,9 +16,9 @@ export const members2 = [
   { code: "kosaka", name: "小坂菜緒" },
   { code: "tomita", name: "富田鈴花" },
   { code: "nibu", name: "丹生明里" },
-  { code: "hamgishi", name: "濱岸ひより" },
-  { code: "matsuhda", name: "松田好花" },
-  { code: "tomita", name: "宮田愛萌" },
+  { code: "hamagishi", name: "濱岸ひより" },
+  { code: "matsuda", name: "松田好花" },
+  { code: "miyata", name: "宮田愛萌" },
   { code: "watanabe", name: "渡邉美穂" },
 ];
 

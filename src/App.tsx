@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from "react";
-// import { Blog, List } from "./List";
-import { Blog, SmartPhoneList } from "./SmartPhoneList";
-import { SearchModal } from "./SearchModal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFilter } from "@fortawesome/free-solid-svg-icons";
 import { DateTime } from "luxon";
+
+import { Blog } from "./Blog";
+import { SearchModal } from "./SearchModal";
+import { PcList } from "./PcList";
+import { SmartPhoneList } from "./SmartPhoneList";
+import { BrowserView, MobileView } from "react-device-detect";
 
 export const App: React.FC = () => {
   const [blogs, setBlogs] = useState<Blog[]>([]);
@@ -19,7 +22,6 @@ export const App: React.FC = () => {
       const blogs = await getBlogs();
       setBlogs(blogs);
     };
-    console.log("call");
     fetch();
   }, []);
 
@@ -71,11 +73,12 @@ export const App: React.FC = () => {
     <>
       <section className="section" style={{ padding: "1rem" }}>
         <div className="container">
-          <div style={{ display: "table" }}>
+          <div style={{ display: "table", width: "100%" }}>
             <div
               style={{
                 fontSize: "2rem",
                 display: "table-cell",
+                width: "90%",
                 verticalAlign: "middle",
               }}
             >
@@ -99,8 +102,12 @@ export const App: React.FC = () => {
               </button>
             </div>
           </div>
-          <SmartPhoneList blogs={blogs} />
-          {/* <List blogs={blogs} /> */}
+          <MobileView>
+            <SmartPhoneList blogs={blogs} />
+          </MobileView>
+          <BrowserView>
+            <PcList blogs={blogs} />
+          </BrowserView>
         </div>
       </section>
       {isOpen && (

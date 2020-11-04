@@ -1,14 +1,8 @@
 import React from "react";
 import { DateTime } from "luxon";
+import { Blog } from "./Blog";
 
-export type Blog = {
-  postedAt: string;
-  postedBy: string;
-  title: string;
-  url: string;
-};
-
-export const List: React.FC<{ blogs: Blog[] }> = ({ blogs }) => {
+export const PcList: React.FC<{ blogs: Blog[] }> = ({ blogs }) => {
   return (
     <table className="table" style={{ width: "100%" }}>
       <thead>
