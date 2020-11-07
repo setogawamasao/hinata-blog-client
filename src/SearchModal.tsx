@@ -13,11 +13,17 @@ export const SearchModal: React.FC<{
   setDateTo: React.Dispatch<React.SetStateAction<Date | undefined>>;
   title: string;
   setTitle: React.Dispatch<React.SetStateAction<string>>;
+  showNumber: number;
+  setShowNumber: React.Dispatch<React.SetStateAction<number>>;
+  sort: string;
+  setSort: React.Dispatch<React.SetStateAction<string>>;
   getBlogs: (
     members?: string[],
     dateFrom?: Date | undefined,
     dateTo?: Date | undefined,
-    title?: string
+    title?: string,
+    showNumber?: number,
+    sort?: string
   ) => Promise<Blog[]>;
   setBlogs: React.Dispatch<React.SetStateAction<Blog[]>>;
   close: () => void;
@@ -30,6 +36,10 @@ export const SearchModal: React.FC<{
   setDateTo,
   title,
   setTitle,
+  showNumber,
+  setShowNumber,
+  sort,
+  setSort,
   getBlogs,
   setBlogs,
   close,
@@ -40,8 +50,52 @@ export const SearchModal: React.FC<{
       <div className="modal-card">
         <header className="modal-card-head">
           <p className="modal-card-title">検索条件</p>
+          <button
+            className="delete"
+            aria-label="close"
+            onClick={close}
+          ></button>
         </header>
         <section className="modal-card-body">
+          <div>
+            <span style={{ marginRight: "1rem" }}>表示件数</span>
+            <input
+              type="number"
+              style={{ width: "10%" }}
+              value={showNumber}
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                setShowNumber(Number(event.target.value));
+              }}
+            />
+          </div>
+          <div>
+            <span style={{ marginRight: "1rem" }}>並び順(投稿日)</span>
+            <span className="control">
+              <label className="radio">
+                <input
+                  type="radio"
+                  name="sort"
+                  checked={sort === "asc"}
+                  onChange={() => {
+                    setSort("asc");
+                  }}
+                />
+                昇順
+              </label>
+              <label className="radio">
+                <input
+                  type="radio"
+                  name="sort"
+                  checked={sort === "desc"}
+                  onChange={() => {
+                    setSort("desc");
+                  }}
+                />
+                降順
+              </label>
+            </span>
+          </div>
+          <hr style={{ margin: "0.2rem 0" }} />
           <div style={{ display: "flex", flexWrap: "wrap" }}>
             {members1.map((member, idx) => {
               return (
@@ -111,21 +165,24 @@ export const SearchModal: React.FC<{
           />
         </section>
         <footer className="modal-card-foot">
-          <div style={{ margin: "0 auto" }}>
-            <button
-              className="button"
-              onClick={async (): Promise<void> => {
-                const blogs = await getBlogs(members, dateFrom, dateTo, title);
-                setBlogs(blogs);
-                close();
-              }}
-            >
-              検索
-            </button>
-            <button className="button" onClick={close}>
-              閉じる
-            </button>
-          </div>
+          <button
+            className="button"
+            style={{ width: "100%" }}
+            onClick={async (): Promise<void> => {
+              const blogs = await getBlogs(
+                members,
+                dateFrom,
+                dateTo,
+                title,
+                showNumber,
+                sort
+              );
+              setBlogs(blogs);
+              close();
+            }}
+          >
+            検索
+          </button>
         </footer>
       </div>
     </div>

@@ -16,6 +16,8 @@ export const App: React.FC = () => {
   const [dateTo, setDateTo] = useState<Date | undefined>();
   const [title, setTitle] = useState<string>("");
   const [isOpen, setIsOpen] = useState<Boolean>(false);
+  const [showNumber, setShowNumber] = useState<number>(100);
+  const [sort, setSort] = useState<string>("asc");
 
   const close = () => {
     setIsOpen(false);
@@ -33,7 +35,9 @@ export const App: React.FC = () => {
     members?: string[],
     dateFrom?: Date | undefined,
     dateTo?: Date | undefined,
-    title?: string
+    title?: string,
+    showNumber: number = 100,
+    sort: string = "asc"
   ): Promise<Blog[]> => {
     let queryString = "?";
 
@@ -67,7 +71,7 @@ export const App: React.FC = () => {
       queryString = `${queryString}&${titleCondition}`;
     }
 
-    const apiUrl = `http://34.219.139.226/hinata-blogs-api/blogs/search${queryString}`;
+    const apiUrl = `http://34.219.139.226/hinata-blogs-api/blogs/search${queryString}&showNumber=${showNumber}&sort=${sort}`;
     const response = await fetch(apiUrl);
     const blogs: Blog[] = await response.json();
     return blogs;
@@ -124,6 +128,10 @@ export const App: React.FC = () => {
           setDateTo={setDateTo}
           title={title}
           setTitle={setTitle}
+          showNumber={showNumber}
+          setShowNumber={setShowNumber}
+          sort={sort}
+          setSort={setSort}
           getBlogs={getBlogs}
           setBlogs={setBlogs}
           close={close}
