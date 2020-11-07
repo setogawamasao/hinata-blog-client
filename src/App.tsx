@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFilter } from "@fortawesome/free-solid-svg-icons";
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { DateTime } from "luxon";
 
 import { Blog } from "./Blog";
@@ -106,7 +106,7 @@ export const App: React.FC = () => {
                   setIsOpen(true);
                 }}
               >
-                <FontAwesomeIcon icon={faFilter} size={"1x"} />
+                <FontAwesomeIcon icon={faSearch} size={"1x"} />
               </button>
             </div>
           </div>
