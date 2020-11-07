@@ -169,16 +169,20 @@ export const SearchModal: React.FC<{
             className="button"
             style={{ width: "100%" }}
             onClick={async (): Promise<void> => {
-              const blogs = await getBlogs(
-                members,
-                dateFrom,
-                dateTo,
-                title,
-                showNumber,
-                sort
-              );
-              setBlogs(blogs);
-              close();
+              if (200 <= Number(showNumber)) {
+                alert("表示件数は200件以下にしてください");
+              } else {
+                const blogs = await getBlogs(
+                  members,
+                  dateFrom,
+                  dateTo,
+                  title,
+                  showNumber,
+                  sort
+                );
+                setBlogs(blogs);
+                close();
+              }
             }}
           >
             検索
