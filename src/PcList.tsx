@@ -7,7 +7,7 @@ export const PcList: React.FC<{ blogs: Blog[] }> = ({ blogs }) => {
     <table className="table" style={{ width: "100%" }}>
       <thead>
         <tr>
-          <th style={{ width: "148px" }}>投稿日</th>
+          <th style={{ width: "150px" }}>投稿日</th>
           <th style={{ width: "110px" }}>名前</th>
           <th style={{ width: "auto" }}>タイトル</th>
         </tr>
